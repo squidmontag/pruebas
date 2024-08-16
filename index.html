@@ -1,14 +1,130 @@
 <html>
 
 <head>
-    <title>My First Webpage</title>
+    <title>Cubo 3D Interactivo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .scene {
+            perspective: 1000px;
+        }
+
+        .cube {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg);
+            transition: transform 0.5s;
+        }
+
+        .cube__face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+        }
+
+        .cube__face--front {
+            transform: translateZ(100px);
+        }
+
+        .cube__face--back {
+            transform: rotateY(180deg) translateZ(-100px);
+        }
+
+        .cube__face--right {
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .cube__face--left {
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+        .cube__face--top {
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        .cube__face--bottom {
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+
+        .button-container {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Hello, World!</h1>
-    <p
-        style="color: #00ffff; text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff, 0 0 20px #00ffff; font-family: Arial, sans-serif; font-size: 24px; font-weight: bold;">
-        Hola mundo</p>
+    <div class="scene">
+        <div class="cube">
+            <div class="cube__face cube__face--front"><img src="img1.jpg" alt="Imagen 1"></div>
+            <div class="cube__face cube__face--back"><img src="img2.jpg" alt="Imagen 2"></div>
+            <div class="cube__face cube__face--right"><img src="img3.jpg" alt="Imagen 3"></div>
+            <div class="cube__face cube__face--left"><img src="img4.jpg" alt="Imagen 4"></div>
+            <div class="cube__face cube__face--top"><img src="img5.jpg" alt="Imagen 5"></div>
+            <div class="cube__face cube__face--bottom"><img src="img6.jpg" alt="Imagen 6"></div>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button class="show-front">Frente</button>
+        <button class="show-back">Atrás</button>
+        <button class="show-right">Derecha</button>
+        <button class="show-left">Izquierda</button>
+        <button class="show-top">Arriba</button>
+        <button class="show-bottom">Abajo</button>
+    </div>
+
+    <script>
+        const cube = document.querySelector('.cube');
+        const buttons = document.querySelectorAll('button');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const className = button.className;
+                switch (className) {
+                    case 'show-front':
+                        cube.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                        break;
+                    case 'show-back':
+                        cube.style.transform = 'rotateX(0deg) rotateY(180deg)';
+                        break;
+                    case 'show-right':
+                        cube.style.transform = 'rotateX(0deg) rotateY(90deg)';
+                        break;
+                    case 'show-left':
+                        cube.style.transform = 'rotateX(0deg) rotateY(-90deg)';
+                        break;
+                    case 'show-top':
+                        cube.style.transform = 'rotateX(90deg) rotateY(0deg)';
+                        break;
+                    case 'show-bottom':
+                        cube.style.transform = 'rotateX(-90deg) rotateY(0deg)';
+                        break;
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
